@@ -66,7 +66,7 @@ class RandomGuy {
     // generates the set of valid moves for the player; returns a list of valid moves (validMoves)
     private void getValidMoves(int round, int state[][]) {
         int i, j;
-        
+        System.out.println("check");
         numValidMoves = 0;
         if (round < 4) {
             if (state[3][3] == 0) {
@@ -99,6 +99,7 @@ class RandomGuy {
                             validMoves[numValidMoves] = i*8 + j;
                             numValidMoves ++;
                             System.out.println(i + ", " + j);
+                            System.out.println("valid move value: " + validMoves[numValidMoves-1]);
                         }
                     }
                 }
@@ -235,7 +236,8 @@ class RandomGuy {
     //   ipaddress is the ipaddress on the computer the server was launched on.  Enter "localhost" if it is on the same computer
     //   player_number is 1 (for the black player) and 2 (for the white player)
     public static void main(String args[]) {
-        new RandomGuy(Integer.parseInt(args[1]), args[0]);
+        //new RandomGuy(Integer.parseInt(args[1]), args[0]);
+        new RandomGuy(2, "localhost");
     }
     
 }

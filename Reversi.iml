@@ -7,6 +7,8 @@
       <sourceFolder url="file://$MODULE_DIR$/src/ReversiRandom_Java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ReversiServer" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/srcServer" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/srcHuman" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

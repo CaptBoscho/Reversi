@@ -539,7 +539,8 @@ class Human extends JFrame {
     }
 
     public static void main(String args[]) {
-        new Human(Integer.parseInt(args[1]), args[0]);
+        //new Human(Integer.parseInt(args[1]), args[0]);
+        new Human(1, "localhost");
     }
     
 }
