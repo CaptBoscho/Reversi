@@ -19,7 +19,7 @@ public class Algorithm {
 		int v = Integer.MIN_VALUE;
 		List<Integer> valids = getValidMoves(state, team);
 		for (int n = 0; n < valids.size(); n++) {
-			v = Math.max(v, MinV(applyMove(state, valids.get(n), team == 1 ? 2 : 1), alpha, beta, team));
+			v = Math.max(v, MinV(getProjectedState(state, valids.get(n) / 8, valids.get(n) % 8, team == 1 ? 2 : 1), alpha, beta, team));
 			if (v >= beta)
 				return v;
 			alpha = Math.max(alpha, v);
@@ -35,7 +35,7 @@ public class Algorithm {
 		int v = Integer.MAX_VALUE;
 		List<Integer> valids = getValidMoves(state, team);
 		for (int n = 0; n < valids.size(); n++) {
-			v = Math.max(v, MinV(applyMove(state, valids.get(n), team == 1 ? 2 : 1), alpha, beta, team));
+			v = Math.max(v, MinV(getProjectedState(state, valids.get(n) / 8, valids.get(n) % 8, team == 1 ? 2 : 1), alpha, beta, team));
 			if (v <= alpha)
 				return v;
 			beta = Math.min(beta, v);
@@ -152,15 +152,89 @@ public class Algorithm {
 	        return false;
 	    }
 	
-	/* TODO: Corbin, this might be a dupe of your function. */
-	/* 10/27 2:47   nevermind, yours is better */
-	private static int[][] applyMove(int[][] state, Integer move, int team) {
-		int[][] newState = new int[8][8];
-		for (int a = 0; a < 8; a++)
-			for (int b = 0; b < 8; b++)
-				newState[a][b] = state[a][b];
-		
-		newState[move / 8][move % 8] = team;
-		return newState;
-	}
+	public static int[][] getProjectedState(int[][] state, int row, int col, int turn) {
+	        int incx, incy;
+
+	        int[][] projectedState = new int[8][8];
+	        for (int a = 0; a < 8; a++)
+	        	for (int b = 0; b < 8; b++)
+	        		projectedState[a][b] = state[a][b];
+	        
+	        
+	        for (incx = -1; incx < 2; incx++) {
+	            for (incy = -1; incy < 2; incy++) {
+	                if ((incx == 0) && (incy == 0))
+	                    continue;
+
+	                projectedState = buildProjected(projectedState, row, col, incx, incy, turn);
+	            }
+	        }
+	        return projectedState;
+	    }
+
+	private static int[][] buildProjected(int[][] project, int row, int col, int incx, int incy, int team) {
+	        int sequence[] = new int[7];
+	        int seqLen;
+	        int i, r, c;
+
+	        seqLen = 0;
+	        for (i = 1; i < 8; i++) {
+	            r = row+incy*i;
+	            c = col+incx*i;
+
+	            if ((r < 0) || (r > 7) || (c < 0) || (c > 7))
+	                break;
+
+	            sequence[seqLen] = project[r][c];
+	            seqLen++;
+	        }
+
+	        int count = 0;
+	        for (i = 0; i < seqLen; i++) {
+	            if (team == 1) {
+	                if (sequence[i] == 2)
+	                    count ++;
+	                else {
+	                    if ((sequence[i] == 1) && (count > 0))
+	                        count = 20;
+	                    break;
+	                }
+	            }
+	            else {
+	                if (sequence[i] == 1)
+	                    count ++;
+	                else {
+	                    if ((sequence[i] == 2) && (count > 0))
+	                        count = 20;
+	                    break;
+	                }
+	            }
+	        }
+
+	        if (count > 10) {
+	            if (team == 1) {
+	                i = 1;
+	                r = row+incy*i;
+	                c = col+incx*i;
+	                while (project[r][c] == 2) {
+	                    project[r][c] = 1;
+	                    i++;
+	                    r = row+incy*i;
+	                    c = col+incx*i;
+	                }
+	            }
+	            else {
+	                i = 1;
+	                r = row+incy*i;
+	                c = col+incx*i;
+	                while (project[r][c] == 1) {
+	                    project[r][c] = 2;
+	                    i++;
+	                    r = row+incy*i;
+	                    c = col+incx*i;
+	                }
+	            }
+	        }
+	        return project;
+	    }
 }
