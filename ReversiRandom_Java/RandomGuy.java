@@ -57,11 +57,166 @@ class RandomGuy {
     // validMoves is a list of valid locations that you could place your "stone" on this turn
     // Note that "state" is a global variable 2D list that shows the state of the game
     private int move() {
+
+        if(numValidMoves > 1){
+            List<Integer> bestOptions = Corners();
+            bestOptions.addAll(goodEdges());
+
+
+
+
+
+
+
+        }
+
         // just move randomly for now
         int myMove = generator.nextInt(numValidMoves);
+
         
         return myMove;
     }
+
+    private List<Integer> Corners() {
+        List<Integer> corners = new ArrayList<Integer>();
+        for(int i = 0; i<numValidMoves; i++){
+            if(validMoves[i] == 0){
+                corners.add(0);
+            } else if(validMoves[i] == 7){
+                corners.add(7);
+            } else if(validMoves[i] == 56){
+                corners.add(56);
+            } else if(validMoves[i] == 63){
+                corners.add(63);
+            }
+        }
+        return corners;
+    }
+
+    //Still working on this guy
+    //don't go to 1, 6, 8, 15, 48, 55, 57 or 62 unless it's grounded
+    private List<Integer> goodEdges() {
+        List<Integer> options = new ArrayList<Integer>();
+        for(int i = 0; i<numValidMoves; i++){
+            if(validMoves[i] % 8 == 0){
+                int row = validMoves[i] / 8;
+                int col = 0;
+                boolean grounded = true;
+
+                options.add(validMoves[i]);
+            } else if(validMoves[i] + 1 % 8 == 0){
+                options.add(validMoves[i]);
+            } else if(validMoves[i] > 0 && validMoves[i] < 7){
+                options.add(validMoves[i]);
+            } else if(validMoves[i] > 56 && validMoves[i] != 63){
+                options.add(validMoves[i]);
+            }
+        }
+        return options;
+    }
+
+    /*
+     * TODO: Eric, this function returns a projected version of the state if you were to play the anticipated move
+     * Probably the most useful function I wrote...
+     */
+    public int[][] getProjectedState(int row, int col, int turn, int[][] project) {
+        int incx, incy;
+
+        for (incx = -1; incx < 2; incx++) {
+            for (incy = -1; incy < 2; incy++) {
+                if ((incx == 0) && (incy == 0))
+                    continue;
+
+                project = buildProjected(project, row, col, incx, incy, turn);
+            }
+        }
+        return project;
+    }
+
+    private int[][] buildProjected(int[][] project, int row, int col, int incx, int incy, int turn) {
+        int sequence[] = new int[7];
+        int seqLen;
+        int i, r, c;
+
+        seqLen = 0;
+        for (i = 1; i < 8; i++) {
+            r = row+incy*i;
+            c = col+incx*i;
+
+            if ((r < 0) || (r > 7) || (c < 0) || (c > 7))
+                break;
+
+            sequence[seqLen] = project[r][c];
+            seqLen++;
+        }
+
+        int count = 0;
+        for (i = 0; i < seqLen; i++) {
+            if (me == 0) {
+                if (sequence[i] == 2)
+                    count ++;
+                else {
+                    if ((sequence[i] == 1) && (count > 0))
+                        count = 20;
+                    break;
+                }
+            }
+            else {
+                if (sequence[i] == 1)
+                    count ++;
+                else {
+                    if ((sequence[i] == 2) && (count > 0))
+                        count = 20;
+                    break;
+                }
+            }
+        }
+
+        if (count > 10) {
+            if (me == 0) {
+                i = 1;
+                r = row+incy*i;
+                c = col+incx*i;
+                while (project[r][c] == 2) {
+                    project[r][c] = 1;
+                    i++;
+                    r = row+incy*i;
+                    c = col+incx*i;
+                }
+            }
+            else {
+                i = 1;
+                r = row+incy*i;
+                c = col+incx*i;
+                while (project[r][c] == 1) {
+                    project[r][c] = 2;
+                    i++;
+                    r = row+incy*i;
+                    c = col+incx*i;
+                }
+            }
+        }
+        return project;
+    }
+
+    /*
+     * TODO: Eric, this is the function which will determine the best choice out of the given options
+     * The possible options are numbered starting at 0 in the lower left corner and increasing by 1 in
+     * the rows.
+     */
+    private int findBest(List<Integer> options) {
+        for(Integer option : options){
+            int col = option % 8;
+            int row = option / 8;
+            int project[][] = getProjectedState(row, col, me, state);
+            //TODO: Use projected image to find best option
+        }
+        //Temporary return
+        if(options.size() > 0){ return options.get(0);}
+        return -1;
+    }
+
+
     
     // generates the set of valid moves for the player; returns a list of valid moves (validMoves)
     private void getValidMoves(int round, int state[][]) {
@@ -113,23 +268,23 @@ class RandomGuy {
         //}
     }
     
-    private boolean checkDirection(int state[][], int row, int col, int incx, int incy) {
+    private boolean checkDirection(int row, int col, int incx, int incy) {
         int sequence[] = new int[7];
         int seqLen;
         int i, r, c;
-        
+
         seqLen = 0;
         for (i = 1; i < 8; i++) {
             r = row+incy*i;
             c = col+incx*i;
-        
+
             if ((r < 0) || (r > 7) || (c < 0) || (c > 7))
                 break;
-        
+
             sequence[seqLen] = state[r][c];
             seqLen++;
         }
-        
+
         int count = 0;
         for (i = 0; i < seqLen; i++) {
             if (me == 1) {
@@ -151,7 +306,7 @@ class RandomGuy {
                 }
             }
         }
-        
+
         return false;
     }
     
@@ -163,7 +318,7 @@ class RandomGuy {
                 if ((incx == 0) && (incy == 0))
                     continue;
             
-                if (checkDirection(state, row, col, incx, incy))
+                if (checkDirection(row, col, incx, incy))
                     return true;
             }
         }
