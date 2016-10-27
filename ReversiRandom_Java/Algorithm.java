@@ -153,7 +153,7 @@ public class Algorithm {
 	    }
 	
 	/* TODO: Corbin, this might be a dupe of your function. */
-	
+	/* 10/27 2:47   nevermind, yours is better */
 	private static int[][] applyMove(int[][] state, Integer move, int team) {
 		int[][] newState = new int[8][8];
 		for (int a = 0; a < 8; a++)
