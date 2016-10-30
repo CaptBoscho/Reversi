@@ -3,7 +3,7 @@ import java.util.List;
 
 public class Algorithm {
 
-	public static int MAX_DEPTH = 2;
+	public static int MAX_DEPTH = 4;
 	static int lastOptimalChoice;
 	public static int AlphaBeta(int[][] state)
 	{
@@ -33,7 +33,8 @@ public class Algorithm {
 			//because we only care about the immediate option for the AI
 			if (nextV >= v)
 			{
-				lastOptimalChoice = valids.get(n);
+				if (depth == 0)
+					lastOptimalChoice = valids.get(n);
 				v = nextV;
 			}
 			
@@ -66,19 +67,19 @@ public class Algorithm {
 		
 		List<Integer> valids = new ArrayList<Integer>();
         int i, j;
-        System.out.println("check");
+        //System.out.println("check");
         
         
         //The first 4 rounds are handled in RandomGuy
         
-            System.out.println("Valid Moves:");
+           // System.out.println("Valid Moves:");
             for (i = 0; i < 8; i++) {
                 for (j = 0; j < 8; j++) {
                     if (state[i][j] == 0) {
                         if (couldBe(state, i, j, team)) {
                             valids.add(i*8 + j);
-                            System.out.println(i + ", " + j);
-                            System.out.println("valid move value: " + valids.get(valids.size()-1));
+                          //  System.out.println(i + ", " + j);
+                         //   System.out.println("valid move value: " + valids.get(valids.size()-1));
                         }
                     }
                 }
