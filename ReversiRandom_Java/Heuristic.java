@@ -46,10 +46,6 @@ public class Heuristic {
 			     }
 			}
 		}
-	//	System.out.print("DIFF: " + diff + ", ");
-		if (diff > 500) {
-			return diff;
-		}
 		return diff;
 		
 	}
