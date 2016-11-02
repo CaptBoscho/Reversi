@@ -23,20 +23,43 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="RandomGuy.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="RandomGuy.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RandomGuy.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="214">
-              <caret line="320" column="35" selection-start-line="320" selection-start-column="35" selection-end-line="320" selection-end-column="35" />
+            <state relative-caret-position="-1537">
+              <caret line="73" column="24" selection-start-line="73" selection-start-column="24" selection-end-line="73" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#Corners#0;class#RandomGuy#0" expanded="false" />
-                <element signature="e#2128#2137#0" expanded="true" />
-                <element signature="e#2725#2734#0" expanded="true" />
+                <element signature="method#RandomGuy#0;class#RandomGuy#0" expanded="false" />
+                <element signature="e#2279#2288#0" expanded="true" />
+                <element signature="e#2761#2770#0" expanded="true" />
                 <element signature="method#buildProjected#0;class#RandomGuy#0" expanded="false" />
                 <element signature="method#getValidMoves#0;class#RandomGuy#0" expanded="false" />
                 <element signature="method#checkDirection#0;class#RandomGuy#0" expanded="false" />
+                <element signature="method#couldBe#0;class#RandomGuy#0" expanded="false" />
+                <element signature="method#readMessage#0;class#RandomGuy#0" expanded="false" />
+                <element signature="method#initClient#0;class#RandomGuy#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Heuristic.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Heuristic.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="275">
+              <caret line="177" column="34" selection-start-line="177" selection-start-column="34" selection-end-line="177" selection-end-column="34" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Algorithm.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Algorithm.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="360">
+              <caret line="25" column="15" selection-start-line="25" selection-start-column="15" selection-end-line="25" selection-end-column="15" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -51,7 +74,9 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/Algorithm.java" />
         <option value="$PROJECT_DIR$/RandomGuy.java" />
+        <option value="$PROJECT_DIR$/Heuristic.java" />
       </list>
     </option>
   </component>
@@ -577,12 +602,12 @@
       <option name="presentableId" value="Default" />
       <updated>1477510262169</updated>
       <workItem from="1477510266174" duration="1755000" />
-      <workItem from="1477533893825" duration="8510000" />
+      <workItem from="1477533893825" duration="17202000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10265000" />
+    <option name="totallyTimeSpent" value="18957000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="20" y="35" width="1260" height="703" extended-state="0" />
@@ -596,7 +621,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16719243" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16719243" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -643,12 +668,15 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#Corners#0;class#RandomGuy#0" expanded="false" />
-            <element signature="e#2128#2137#0" expanded="true" />
-            <element signature="e#2725#2734#0" expanded="true" />
+            <element signature="method#RandomGuy#0;class#RandomGuy#0" expanded="false" />
+            <element signature="e#2279#2288#0" expanded="true" />
+            <element signature="e#2761#2770#0" expanded="true" />
             <element signature="method#buildProjected#0;class#RandomGuy#0" expanded="false" />
             <element signature="method#getValidMoves#0;class#RandomGuy#0" expanded="false" />
             <element signature="method#checkDirection#0;class#RandomGuy#0" expanded="false" />
+            <element signature="method#couldBe#0;class#RandomGuy#0" expanded="false" />
+            <element signature="method#readMessage#0;class#RandomGuy#0" expanded="false" />
+            <element signature="method#initClient#0;class#RandomGuy#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -660,19 +688,38 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Algorithm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="25" column="15" selection-start-line="25" selection-start-column="15" selection-end-line="25" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/RandomGuy.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="320" column="35" selection-start-line="320" selection-start-column="35" selection-end-line="320" selection-end-column="35" />
+        <state relative-caret-position="-1537">
+          <caret line="73" column="24" selection-start-line="73" selection-start-column="24" selection-end-line="73" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#Corners#0;class#RandomGuy#0" expanded="false" />
-            <element signature="e#2128#2137#0" expanded="true" />
-            <element signature="e#2725#2734#0" expanded="true" />
+            <element signature="method#RandomGuy#0;class#RandomGuy#0" expanded="false" />
+            <element signature="e#2279#2288#0" expanded="true" />
+            <element signature="e#2761#2770#0" expanded="true" />
             <element signature="method#buildProjected#0;class#RandomGuy#0" expanded="false" />
             <element signature="method#getValidMoves#0;class#RandomGuy#0" expanded="false" />
             <element signature="method#checkDirection#0;class#RandomGuy#0" expanded="false" />
+            <element signature="method#couldBe#0;class#RandomGuy#0" expanded="false" />
+            <element signature="method#readMessage#0;class#RandomGuy#0" expanded="false" />
+            <element signature="method#initClient#0;class#RandomGuy#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Heuristic.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="177" column="34" selection-start-line="177" selection-start-column="34" selection-end-line="177" selection-end-column="34" />
+          <folding />
         </state>
       </provider>
     </entry>

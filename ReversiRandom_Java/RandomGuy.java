@@ -74,7 +74,7 @@ class RandomGuy {
 		if (round < 4) {
 			return getInitialRoundsMove();
 		}
-		int maximinval = Algorithm.AlphaBeta(state);
+		int maximinval = Algorithm.AlphaBeta(state, round);
 		validMoves[0] = maximinval;
 		return 0;
 		
