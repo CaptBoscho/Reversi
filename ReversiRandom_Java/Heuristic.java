@@ -189,11 +189,12 @@ public class Heuristic {
                     }
 
                     //Most undesirable squares
-                    if ((n == 1 && m == 1) || (n == 1 && m == 6) || (n == 6 && m == 1) || (n == 6 && m == 6)) {
+                    if ((n == 1 && m == 1 && state[0][0] != team) || (n == 1 && m == 6 && state[0][7] != team)
+                            || (n == 6 && m == 1 && state[7][0] != team) || (n == 6 && m == 6 && state[7][7] != team)) {
                         if (state[n][m] == team) {
-                            diff = -100;
+                            diff = -1000;
                         } else if (state[n][m] == enemy) {
-                            diff = 100;
+                            diff = 1000;
                         }
                     }
                 }
