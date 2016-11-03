@@ -242,7 +242,6 @@ class RandomGuy {
 	// moves (validMoves)
 	private void getValidMoves(int round, int state[][]) {
 		int i, j;
-		System.out.println("check");
 		numValidMoves = 0;
 		if (round < 4) {
 			if (state[3][3] == 0) {
@@ -274,7 +273,6 @@ class RandomGuy {
 							validMoves[numValidMoves] = i * 8 + j;
 							numValidMoves++;
 							System.out.println(i + ", " + j);
-							System.out.println("valid move value: " + validMoves[numValidMoves - 1]);
 						}
 					}
 				}

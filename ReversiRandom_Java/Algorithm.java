@@ -3,7 +3,7 @@ import java.util.List;
 
 public class Algorithm {
 
-	public static int MAX_DEPTH = 4;
+	public static int MAX_DEPTH = 8;
 	static int lastOptimalChoice;
 	public static int AlphaBeta(int[][] state, int turn)
 	{
@@ -24,7 +24,6 @@ public class Algorithm {
 		List<Integer> valids = getValidMoves(state, team);
 		
 		turn++;
-		
 		for (int n = 0; n < valids.size(); n++) {
 			int nextV = MinV(getProjectedState(state, valids.get(n) / 8, valids.get(n) % 8, team), alpha, beta, team == 2 ? 1 : 2, depth + 1, turn);
 			
