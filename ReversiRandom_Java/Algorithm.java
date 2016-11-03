@@ -5,11 +5,11 @@ public class Algorithm {
 
 	public static int MAX_DEPTH = 10;
 	static int lastOptimalChoice;
-	public static int AlphaBeta(int[][] state, int turn)
+	public static int AlphaBeta(int[][] state, int turn, int team)
 	{
 		int alpha = Integer.MIN_VALUE;
 		int beta = Integer.MAX_VALUE;
-		int v =  MaxV(state, alpha, beta, 1, 0, turn); //TODO: Check if this "team" is right
+		int v =  MaxV(state, alpha, beta, team, 0, turn); //TODO: Check if this "team" is right
 		System.out.println("AlphaBeta max value: " + v);
 		return lastOptimalChoice;
 	}
