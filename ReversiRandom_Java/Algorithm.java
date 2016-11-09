@@ -3,7 +3,7 @@ import java.util.List;
 
 public class Algorithm {
 
-	public static int MAX_DEPTH = 10;
+	public static int MAX_DEPTH = 6;
 	static int lastOptimalChoice;
 	public static int AlphaBeta(int[][] state, int turn, int team)
 	{
@@ -22,7 +22,7 @@ public class Algorithm {
 		
 		int v = Integer.MIN_VALUE;
 		List<Integer> valids = getValidMoves(state, team);
-		
+		valids = getBestValids(valids, turn);
 		turn++;
 		for (int n = 0; n < valids.size(); n++) {
 			int nextV = MinV(getProjectedState(state, valids.get(n) / 8, valids.get(n) % 8, team), alpha, beta, team == 2 ? 1 : 2, depth + 1, turn);
@@ -45,6 +45,41 @@ public class Algorithm {
 		return v;
 		
 	}
+
+	public static List<Integer> getBestValids(List<Integer> current, int round) {
+		List<Integer> best = new ArrayList<Integer>();
+		for(int i=0; i<current.size(); i++){
+			int spot = current.get(i);
+			//Corners And Edges
+			if(spot <= 7 || spot >= 56 || spot % 8 == 0 || spot % 8 == 1){
+				best.add(spot);
+			}
+			//Sweet Sixteen
+			int rem = spot % 8;
+			if(rem > 1 && rem <6 && spot > 17 && spot < 46) {
+				best.add(spot);
+			}
+			if(round >= 20) {
+				if(spot != 9 && spot != 14 && spot != 49 && spot !=54) {
+					best.add(spot);
+
+				}
+			}
+		}
+		if(best.size() == 0 && round < 20) {
+			for(int i=0; i<current.size(); i++){
+				int spot = current.get(i);
+				if(spot != 9 && spot != 14 && spot != 49 && spot !=54) {
+					best.add(spot);
+				}
+			}
+		}
+		if(best.size() == 0){
+			return current;
+		}
+		return best;
+	}
+
 	public static int MinV(int[][] state, int alpha, int beta, int team,  int depth, int turn)
 	{
 		//If hit max depth,

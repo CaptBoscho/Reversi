@@ -17,9 +17,9 @@ public class Heuristic {
 		return diff;
 	}
 	
-	static final int EDGE_BENEFIT = 10;
+	static final int EDGE_BENEFIT = 5;
     static final int GROUNDED_EDGE = 15;
-	static final int CORNER_BENEFIT = 20;
+	static final int CORNER_BENEFIT = 40;
 	static final int SWEET_SIXTEEN = 5;
 	public static int colorDiffWithCorners(int[][] state, int team, int turn) {
 		
