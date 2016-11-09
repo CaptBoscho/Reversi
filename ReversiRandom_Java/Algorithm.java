@@ -3,7 +3,7 @@ import java.util.List;
 
 public class Algorithm {
 
-	public static int MAX_DEPTH = 6;
+	public static int MAX_DEPTH = 9;
 	static int lastOptimalChoice;
 	public static int AlphaBeta(int[][] state, int turn, int team)
 	{
