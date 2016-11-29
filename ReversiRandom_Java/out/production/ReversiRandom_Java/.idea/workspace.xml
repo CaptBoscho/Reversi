@@ -47,8 +47,8 @@
       <file leaf-file-name="Heuristic.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Heuristic.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" column="41" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
+            <state relative-caret-position="405">
+              <caret line="27" column="37" selection-start-line="27" selection-start-column="37" selection-end-line="27" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -57,8 +57,8 @@
       <file leaf-file-name="Algorithm.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Algorithm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2589">
-              <caret line="58" column="49" selection-start-line="58" selection-start-column="49" selection-end-line="58" selection-end-column="49" />
+            <state relative-caret-position="60">
+              <caret line="5" column="35" selection-start-line="5" selection-start-column="35" selection-end-line="5" selection-end-column="35" />
               <folding>
                 <element signature="e#1429#1438#0" expanded="true" />
               </folding>
@@ -77,8 +77,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/RandomGuy.java" />
-        <option value="$PROJECT_DIR$/Heuristic.java" />
         <option value="$PROJECT_DIR$/Algorithm.java" />
+        <option value="$PROJECT_DIR$/Heuristic.java" />
       </list>
     </option>
   </component>
@@ -90,7 +90,7 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="20" />
-    <option name="y" value="52" />
+    <option name="y" value="42" />
     <option name="width" value="1260" />
     <option name="height" value="703" />
   </component>
@@ -119,6 +119,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -141,7 +142,6 @@
         </subPane>
       </pane>
       <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -606,16 +606,17 @@
       <updated>1477510262169</updated>
       <workItem from="1477510266174" duration="1755000" />
       <workItem from="1477533893825" duration="25763000" />
-      <workItem from="1478708635448" duration="1062000" />
+      <workItem from="1478708635448" duration="2675000" />
+      <workItem from="1478712087843" duration="33000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="28580000" />
+    <option name="totallyTimeSpent" value="30226000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="20" y="52" width="1260" height="703" extended-state="0" />
-    <editor active="true" />
+    <frame x="20" y="42" width="1260" height="703" extended-state="0" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -687,6 +688,43 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Heuristic.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="27" column="37" selection-start-line="27" selection-start-column="37" selection-end-line="27" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Algorithm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="5" column="35" selection-start-line="5" selection-start-column="35" selection-end-line="5" selection-end-column="35" />
+          <folding>
+            <element signature="e#1429#1438#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RandomGuy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#Corners#0;class#RandomGuy#0" expanded="false" />
+            <element signature="method#goodEdges#0;class#RandomGuy#0" expanded="false" />
+            <element signature="method#buildProjected#0;class#RandomGuy#0" expanded="false" />
+            <element signature="method#findBest#0;class#RandomGuy#0" expanded="false" />
+            <element signature="method#getValidMoves#0;class#RandomGuy#0" expanded="false" />
+            <element signature="method#checkDirection#0;class#RandomGuy#0" expanded="false" />
+            <element signature="method#couldBe#0;class#RandomGuy#0" expanded="false" />
+            <element signature="method#readMessage#0;class#RandomGuy#0" expanded="false" />
+            <element signature="method#initClient#0;class#RandomGuy#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Heuristic.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2955">
           <caret line="197" column="25" selection-start-line="197" selection-start-column="25" selection-end-line="197" selection-end-column="25" />
           <folding />
@@ -719,21 +757,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Heuristic.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="41" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Algorithm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2589">
-          <caret line="58" column="49" selection-start-line="58" selection-start-column="49" selection-end-line="58" selection-end-column="49" />
+        <state relative-caret-position="60">
+          <caret line="5" column="35" selection-start-line="5" selection-start-column="35" selection-end-line="5" selection-end-column="35" />
           <folding>
             <element signature="e#1429#1438#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Heuristic.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="27" column="37" selection-start-line="27" selection-start-column="37" selection-end-line="27" selection-end-column="37" />
+          <folding />
         </state>
       </provider>
     </entry>

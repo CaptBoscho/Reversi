@@ -601,6 +601,6 @@ public class Reversi extends JFrame {
         new Reversi();
 
         //playGame(Integer.parseInt(args[0]));
-        playGame(10);
+        playGame(3);
     }
 }

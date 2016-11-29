@@ -61,21 +61,68 @@ class RandomGuy {
 	// Note that "state" is a global variable 2D list that shows the state of
 	// the game
 	private int move() {
+		if (round < 4) {
+			return getInitialRoundsMove();
+		}
 
 		if (numValidMoves > 1) {
 			List<Integer> bestOptions = Corners();
-			bestOptions.addAll(goodEdges());
+			int myMove = 0;
+			if(bestOptions.size() > 0){
+				validMoves[0] = Algorithm.getBestMove(state, bestOptions, me, round);
+				return 0;
+			}
 
+			//If we're in the earlier rounds, middle pieces are more important than edges
+			if(round <= 25){
+				bestOptions = SweetSixteen();
+				if(bestOptions.size() > 0){
+					validMoves[0] = Algorithm.getBestMove(state, bestOptions, me, round);
+					return 0;
+				}
+
+				bestOptions = groundedEdges();
+				if(bestOptions.size() > 0){
+					validMoves[0] = Algorithm.getBestMove(state, bestOptions, me, round);
+					return 0;
+				}
+			} else {
+				bestOptions = groundedEdges();
+				if(bestOptions.size() > 0){
+					validMoves[0] = Algorithm.getBestMove(state, bestOptions, me, round);
+					return 0;
+				}
+
+				bestOptions = SweetSixteen();
+				if(bestOptions.size() > 0){
+					validMoves[0] = Algorithm.getBestMove(state, bestOptions, me, round);
+					return 0;
+				}
+			}
+
+			bestOptions = goodEdges();
+			if(bestOptions.size() > 0){
+				validMoves[0] = Algorithm.getBestMove(state, bestOptions, me, round);
+				return 0;
+			}
+
+			bestOptions = acceptableMoves();
+			if(bestOptions.size() > 0){
+				validMoves[0] = Algorithm.AlphaBeta(state, round, me, bestOptions);
+				return 0;
+			}
+			for(int k = 0; k<validMoves.length; k++){
+				bestOptions.add(validMoves[k]);
+			}
+			validMoves[0] = Algorithm.AlphaBeta(state, round, me, bestOptions);
+			return 0;
 		}
 
 		// just move randomly for now
 		//int myMove = generator.nextInt(numValidMoves);
-        
-		if (round < 4) {
-			return getInitialRoundsMove();
-		}
-		int maximinval = Algorithm.AlphaBeta(state, round, me);
-		validMoves[0] = maximinval;
+
+		//int maximinval = Algorithm.AlphaBeta(state, round, me);
+		//validMoves[0] = maximinval;
 		return 0;
 		
 		//return myMove;
@@ -114,26 +161,145 @@ class RandomGuy {
 		return corners;
 	}
 
+	private List<Integer> SweetSixteen() {
+		List<Integer> middle = new ArrayList<>();
+		for (int i = 0; i < numValidMoves; i++) {
+			if(validMoves[i] / 8 > 1 && validMoves[i] /8 < 6 && validMoves[i] % 8 > 1 && validMoves[i] % 8 < 6){
+				middle.add(validMoves[i]);
+			}
+		}
+		return middle;
+	}
+
+	private List<Integer> goodEdges() {
+		List<Integer> edges = new ArrayList<>();
+		for (int i = 0; i < numValidMoves; i++) {
+			int row = validMoves[i] / 8;
+			int col = validMoves[i] % 8;
+			if (row == 0 || row == 7) {
+				boolean goodLeft = true;
+				boolean goodRight = true;
+				if(col > 0) {
+					if(state[row][col -1] != me && state[row][col -1] != 0){
+						goodLeft = false;
+						for(int c = col; c>0; c--){
+							if(state[row][c] == me){
+								goodLeft = true;
+							}
+						}
+					}
+				} else { goodLeft = false;}
+
+				if(col < 7) {
+					if(state[row][col + 1] != me && state[row][col + 1] != 0){
+						goodRight = false;
+						for(int c = col; c < 7; c++){
+							if(state[row][c] == me){
+								goodRight = true;
+							}
+						}
+					}
+				} else { goodRight = false; }
+
+				if(goodRight && goodLeft){
+					edges.add(validMoves[i]);
+				}
+			}
+
+			if ( col == 0 || col == 7){
+				boolean goodUp = true;
+				boolean goodDown = true;
+				if (row > 0) {
+					if(state[row - 1][col] != me && state[row - 1][col] !=0){
+						goodDown = false;
+						for(int r = row; r>0; r--){
+							if(state[r][col] == me){
+								goodDown = true;
+							}
+						}
+					}
+				} else {goodDown = false;}
+
+				if( row < 7) {
+					if(state[row + 1][col] != me && state[row + 1][col] != 0){
+						goodUp = false;
+						for(int r = row; r < 7; r++){
+							if(state[r][col] == me){
+								goodUp = true;
+							}
+						}
+					}
+				} else { goodUp = false;}
+
+				if(goodUp && goodDown){
+					edges.add(validMoves[i]);
+				}
+			}
+		}
+		return edges;
+	}
+
 	// Still working on this guy
 	// don't go to 1, 6, 8, 15, 48, 55, 57 or 62 unless it's grounded
-	private List<Integer> goodEdges() {
+	private List<Integer> groundedEdges() {
 		List<Integer> options = new ArrayList<Integer>();
 		for (int i = 0; i < numValidMoves; i++) {
-			if (validMoves[i] % 8 == 0) {
-				int row = validMoves[i] / 8;
-				int col = 0;
-				boolean grounded = true;
+			int row = validMoves[i] / 8;
+			int col = validMoves[i] % 8;
+			if (row == 0 || row == 7) {
+				boolean groundedLeft = true;
+				boolean groundedRight = true;
+				for(int c = col; c < 8; c ++){
+					if(state[row][c] != me){
+						groundedRight = false;
+					}
+				}
+				for(int c = col; c >= 0; c--){
+					if(state[row][c] != me){
+						groundedLeft = false;
+					}
+				}
 
-				options.add(validMoves[i]);
-			} else if (validMoves[i] + 1 % 8 == 0) {
-				options.add(validMoves[i]);
-			} else if (validMoves[i] > 0 && validMoves[i] < 7) {
-				options.add(validMoves[i]);
-			} else if (validMoves[i] > 56 && validMoves[i] != 63) {
-				options.add(validMoves[i]);
+				if(groundedLeft || groundedRight) {
+					options.add(validMoves[i]);
+				}
+			}
+			if (col == 0 || col == 7){
+				boolean groundedDown = true;
+				boolean groundedUp = true;
+				for(int r = row; r < 8; r++){
+					if(state[r][col] != me){
+						groundedUp = false;
+					}
+				}
+
+				for(int r = row; r >= 0; r--){
+					if(state[r][col] != me){
+						groundedDown = false;
+					}
+				}
+
+				if(groundedUp || groundedDown){
+					options.add(validMoves[i]);
+				}
 			}
 		}
 		return options;
+	}
+
+	private List<Integer> acceptableMoves(){
+		List<Integer> acceptable = new ArrayList<>();
+		for(int i = 0; i < validMoves.length; i++){
+			int row = validMoves[i] / 8;
+			int col = validMoves[i] % 8;
+			if(row != 0 && row != 7 && col != 0 && col != 7){
+				if(validMoves[i] != 9 && validMoves[i] != 14 &&
+						validMoves[i] != 49 && validMoves[i] != 54){
+					acceptable.add(validMoves[i]);
+				}
+			}
+		}
+		return acceptable;
 	}
 
 	/*
