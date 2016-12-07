@@ -5,11 +5,13 @@ public class Algorithm {
 
 	public static int MAX_DEPTH = 5;
 	static int lastOptimalChoice;
+    public static List<Integer> myValids;
 	public static int AlphaBeta(int[][] state, int turn, int team, List<Integer> valids)
 	{
 		int alpha = Integer.MIN_VALUE;
 		int beta = Integer.MAX_VALUE;
-		int v =  MaxV(state, alpha, beta, team, 0, turn, valids); //TODO: Check if this "team" is right
+        myValids = valids;
+		int v =  MaxV(state, alpha, beta, team, 0, turn); //TODO: Check if this "team" is right
 		System.out.println("AlphaBeta max value: " + v);
 		return lastOptimalChoice;
 	}
@@ -30,16 +32,21 @@ public class Algorithm {
         return bestMove;
     }
 
-	public static int MaxV(int[][] state, int alpha, int beta, int team, int depth, int turn, List<Integer> valids)
+	public static int MaxV(int[][] state, int alpha, int beta, int team, int depth, int turn)
 	{
 		//If hit max depth,
 		  //return utility
 		if (depth == MAX_DEPTH)
-			return Heuristic.colorDiffWithCorners(state, 1, turn);
+			return Heuristic.colorDiffWithCorners(state, team, turn);
 		
 		int v = Integer.MIN_VALUE;
-		//List<Integer> valids = getValidMoves(state, team);
-		//valids = getBestValids(valids, turn);
+		List<Integer> valids = getValidMoves(state, team);
+
+        if(depth == 0) {
+            valids = myValids;
+        } else {
+            valids = getBestValids(valids, turn);
+        }
 		turn++;
 		for (int n = 0; n < valids.size(); n++) {
 			int nextV = MinV(getProjectedState(state, valids.get(n) / 8, valids.get(n) % 8, team), alpha, beta, team == 2 ? 1 : 2, depth + 1, turn);
@@ -50,7 +57,7 @@ public class Algorithm {
 			if (nextV >= v)
 			{
 				if (depth == 0)
-					lastOptimalChoice = valids.get(n);
+					lastOptimalChoice = myValids.get(n);
 				v = nextV;
 			}
 			
@@ -102,13 +109,13 @@ public class Algorithm {
 		//If hit max depth,
 		  //return utility
 		if (depth == MAX_DEPTH)
-			return Heuristic.colorDiffWithCorners(state, 1, turn);
+			return Heuristic.colorDiffWithCorners(state, team, turn);
 		
 		int v = Integer.MAX_VALUE;
 		List<Integer> valids = getValidMoves(state, team);
 		turn++;
 		for (int n = 0; n < valids.size(); n++) {
-			v = Math.min(v, MaxV(getProjectedState(state, valids.get(n) / 8, valids.get(n) % 8, team), alpha, beta, team == 2 ? 1 : 2, depth + 1, turn, valids));
+			v = Math.min(v, MaxV(getProjectedState(state, valids.get(n) / 8, valids.get(n) % 8, team), alpha, beta, team == 2 ? 1 : 2, depth + 1, turn));
 			if (v <= alpha)
 				return v;
 			beta = Math.min(beta, v);

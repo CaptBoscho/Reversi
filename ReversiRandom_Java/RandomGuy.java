@@ -108,10 +108,11 @@ class RandomGuy {
 
 			bestOptions = acceptableMoves();
 			if(bestOptions.size() > 0){
-				validMoves[0] = Algorithm.AlphaBeta(state, round, me, bestOptions);
+				validMoves[0] = Algorithm.getBestMove(state, bestOptions, me, round);
 				return 0;
 			}
-			for(int k = 0; k<validMoves.length; k++){
+
+			for(int k = 0; k<numValidMoves; k++){
 				bestOptions.add(validMoves[k]);
 			}
 			validMoves[0] = Algorithm.AlphaBeta(state, round, me, bestOptions);
@@ -289,7 +290,7 @@ class RandomGuy {
 
 	private List<Integer> acceptableMoves(){
 		List<Integer> acceptable = new ArrayList<>();
-		for(int i = 0; i < validMoves.length; i++){
+		for(int i = 0; i < numValidMoves; i++){
 			int row = validMoves[i] / 8;
 			int col = validMoves[i] % 8;
 			if(row != 0 && row != 7 && col != 0 && col != 7){
@@ -573,8 +574,8 @@ class RandomGuy {
 	// Enter "localhost" if it is on the same computer
 	// player_number is 1 (for the black player) and 2 (for the white player)
 	public static void main(String args[]) {
-		// new RandomGuy(Integer.parseInt(args[1]), args[0]);
-		new RandomGuy(1, "localhost");
+		 new RandomGuy(Integer.parseInt(args[1]), args[0]);
+		//new RandomGuy(1, "localhost");
 	}
 
 }
