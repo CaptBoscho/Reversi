@@ -615,8 +615,8 @@ class RandomGuy {
 	// Enter "localhost" if it is on the same computer
 	// player_number is 1 (for the black player) and 2 (for the white player)
 	public static void main(String args[]) {
-		//new RandomGuy(Integer.parseInt(args[1]), args[0]);
-		new RandomGuy(1, "localhost");
+		new RandomGuy(Integer.parseInt(args[1]), args[0]);
+		//new RandomGuy(1, "localhost");
 	}
 
 }

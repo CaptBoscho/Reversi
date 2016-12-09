@@ -23,11 +23,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="RandomGuy.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="RandomGuy.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/RandomGuy.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="123" column="17" selection-start-line="123" selection-start-column="17" selection-end-line="123" selection-end-column="17" />
+            <state relative-caret-position="232">
+              <caret line="617" column="8" selection-start-line="617" selection-start-column="8" selection-end-line="617" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#getInitialRoundsMove#0;class#RandomGuy#0" expanded="false" />
@@ -59,7 +59,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Algorithm.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Algorithm.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Algorithm.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="255">
@@ -82,8 +82,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Heuristic.java" />
-        <option value="$PROJECT_DIR$/RandomGuy.java" />
         <option value="$PROJECT_DIR$/Algorithm.java" />
+        <option value="$PROJECT_DIR$/RandomGuy.java" />
       </list>
     </option>
   </component>
@@ -613,12 +613,12 @@
       <workItem from="1477533893825" duration="25763000" />
       <workItem from="1478708635448" duration="2675000" />
       <workItem from="1478712087843" duration="1262000" />
-      <workItem from="1480363050362" duration="26202000" />
+      <workItem from="1480363050362" duration="26817000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="57657000" />
+    <option name="totallyTimeSpent" value="58272000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="20" y="23" width="964" height="703" extended-state="0" />
@@ -842,10 +842,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Algorithm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="35" column="24" selection-start-line="35" selection-start-column="24" selection-end-line="35" selection-end-column="24" />
+          <folding>
+            <element signature="method#getBestValids#0;class#Algorithm#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/RandomGuy.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="123" column="17" selection-start-line="123" selection-start-column="17" selection-end-line="123" selection-end-column="17" />
+        <state relative-caret-position="232">
+          <caret line="617" column="8" selection-start-line="617" selection-start-column="8" selection-end-line="617" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#getInitialRoundsMove#0;class#RandomGuy#0" expanded="false" />
@@ -862,16 +872,6 @@
             <element signature="method#couldBe#0;class#RandomGuy#0" expanded="false" />
             <element signature="method#readMessage#0;class#RandomGuy#0" expanded="false" />
             <element signature="method#initClient#0;class#RandomGuy#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Algorithm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="35" column="24" selection-start-line="35" selection-start-column="24" selection-end-line="35" selection-end-column="24" />
-          <folding>
-            <element signature="method#getBestValids#0;class#Algorithm#0" expanded="false" />
           </folding>
         </state>
       </provider>
