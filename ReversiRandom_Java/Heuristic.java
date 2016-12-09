@@ -17,10 +17,10 @@ public class Heuristic {
 		return diff;
 	}
 	
-	static final int EDGE_BENEFIT = 25;
+	static final int EDGE_BENEFIT = 3;
     static final int GROUNDED_EDGE = 30;
 	static final int CORNER_BENEFIT = 50;
-	static final int SWEET_SIXTEEN = 5;
+	static final int SWEET_SIXTEEN = 1;
 	public static int colorDiffWithCorners(int[][] state, int team, int turn) {
 		
 		int enemy = (team % 2) + 1;
@@ -34,167 +34,238 @@ public class Heuristic {
                         diff--;
                 }
                 if (turn < 54) {
-                    //Edges
-                    if (n == 0 || n == 7 && (m > 0 && m < 7)) {
-                        boolean grounded = true;
-                        int test1 = m - 1;
-                        while (test1 >= 0) {
-                            if (state[n][test1] != team) {
-                                grounded = false;
-                            }
-                            test1--;
-                        }
-
-                        boolean grounded2 = true;
-                        test1 = m + 1;
-                        while (test1 <= 7) {
-                            if (state[n][test1] != team) {
-                                grounded = false;
-                            }
-                            test1++;
-                        }
-
-                        if (grounded || grounded2) {
-                            if (state[n][m] == team) {
-                                diff += GROUNDED_EDGE;
-                            } else {
-                                diff -= GROUNDED_EDGE;
-                            }
-                        } else {
-                            //Disjoint Edges
-                            int place = m - 1;
-                            boolean good = true;
-                            while (place >= 1) {
-                                if (state[n][place] == enemy) {
-                                    good = false;
-                                } else if (state[n][place] == 0) {
-                                    break;
+                    if (state[n][m] == team) {
+                        //Edges
+                        if ((n == 0 || n == 7) && (m > 0 && m < 7) && state[n][m] == team) {
+                            diff += EDGE_BENEFIT;
+                            boolean grounded = true;
+                            int test1 = m - 1;
+                            while (test1 >= 0) {
+                                if (state[n][test1] != team) {
+                                    grounded = false;
                                 }
-                                place--;
+                                test1--;
                             }
 
-                            place = m + 1;
-                            boolean good2 = true;
-                            while (place <= 6) {
-                                if (state[n][place] == enemy) {
-                                    good2 = false;
-                                } else if (state[n][place] == 0) {
-                                    break;
+                            boolean grounded2 = true;
+                            test1 = m + 1;
+                            while (test1 <= 7) {
+                                if (state[n][test1] != team) {
+                                    grounded = false;
                                 }
-                                place++;
+                                test1++;
                             }
 
-                            if (good && good2) {
+                            if (grounded || grounded2) {
                                 if (state[n][m] == team) {
                                     diff += GROUNDED_EDGE;
                                 } else {
                                     diff -= GROUNDED_EDGE;
                                 }
                             } else {
-                                if (state[n][m] == team) {
-                                    diff -= GROUNDED_EDGE;
-                                } else {
-                                    diff += GROUNDED_EDGE;
+                                //Disjoint Edges
+                                int place = m - 1;
+                                boolean good = true;
+                                while (place >= 1) {
+                                    if (state[n][place] == enemy) {
+                                        good = false;
+                                    } else if (state[n][place] == 0) {
+                                        break;
+                                    }
+                                    place--;
                                 }
+
+                                place = m + 1;
+                                boolean good2 = true;
+                                while (place <= 6) {
+                                    if (state[n][place] == enemy) {
+                                        good2 = false;
+                                    } else if (state[n][place] == 0) {
+                                        break;
+                                    }
+                                    place++;
+                                }
+
+                                if (good && good2) {
+                                    if (state[n][m] == team) {
+                                        diff += GROUNDED_EDGE;
+                                    } else {
+                                        diff -= GROUNDED_EDGE;
+                                    }
+                                } else {
+                                    if (state[n][m] == team) {
+                                        diff -= GROUNDED_EDGE;
+                                    } else {
+                                        diff += GROUNDED_EDGE;
+                                    }
+                                }
+
+                            }
+                        }
+
+                        if ((m == 0 || m == 7) && (n > 0 && n < 7)) {
+                            boolean grounded = true;
+                            int test1 = n - 1;
+                            while (test1 >= 0) {
+                                if (state[test1][m] != team) {
+                                    grounded = false;
+                                }
+                                test1--;
                             }
 
-                        }
-                    }
-
-                    if (m == 0 || m == 7 && (n > 0 && n < 7)) {
-                        boolean grounded = true;
-                        int test1 = n - 1;
-                        while (test1 >= 0) {
-                            if (state[test1][m] != team) {
-                                grounded = false;
+                            boolean grounded2 = true;
+                            test1 = n + 1;
+                            while (test1 <= 7) {
+                                if (state[test1][m] != team) {
+                                    grounded = false;
+                                }
+                                test1++;
                             }
-                            test1--;
-                        }
 
-                        boolean grounded2 = true;
-                        test1 = n + 1;
-                        while (test1 <= 7) {
-                            if (state[test1][m] != team) {
-                                grounded = false;
-                            }
-                            test1++;
-                        }
+                            if (grounded || grounded2) {
+                                if (state[n][m] == team) {
+                                    diff += GROUNDED_EDGE;
+                                } else {
+                                    diff -= GROUNDED_EDGE;
+                                }
 
-                        if (grounded || grounded2) {
-                            if (state[n][m] == team) {
-                                diff += GROUNDED_EDGE;
                             } else {
-                                diff -= GROUNDED_EDGE;
-                            }
-
-                        } else {
-                            //Disjoint Edges
-                            int place = n - 1;
-                            boolean good = true;
-                            while (place >= 1) {
-                                if (state[place][m] == enemy) {
-                                    good = false;
-                                } else if (state[place][m] == 0) {
-                                    break;
+                                //Disjoint Edges
+                                int place = n - 1;
+                                boolean good = true;
+                                while (place >= 1) {
+                                    if (state[place][m] == enemy) {
+                                        good = false;
+                                    } else if (state[place][m] == 0) {
+                                        break;
+                                    }
+                                    place--;
                                 }
-                                place--;
-                            }
 
-                            place = n + 1;
-                            boolean good2 = true;
-                            while (place <= 6) {
-                                if (state[place][m] == enemy) {
-                                    good2 = false;
-                                } else if (state[place][m] == 0) {
-                                    break;
+                                place = n + 1;
+                                boolean good2 = true;
+                                while (place <= 6) {
+                                    if (state[place][m] == enemy) {
+                                        good2 = false;
+                                    } else if (state[place][m] == 0) {
+                                        break;
+                                    }
+                                    place++;
                                 }
-                                place++;
-                            }
 
-                            if (good && good2) {
-                                if (state[n][m] == team) {
-                                    diff += GROUNDED_EDGE;
+                                if (good && good2) {
+                                    if (state[n][m] == team) {
+                                        diff += GROUNDED_EDGE;
+                                    } else {
+                                        diff -= GROUNDED_EDGE;
+                                    }
                                 } else {
-                                    diff -= GROUNDED_EDGE;
-                                }
-                            } else {
-                                if (state[n][m] == team) {
-                                    diff -= GROUNDED_EDGE;
-                                } else {
-                                    diff += GROUNDED_EDGE;
+                                    if (state[n][m] == team) {
+                                        diff -= GROUNDED_EDGE;
+                                    } else {
+                                        diff += GROUNDED_EDGE;
+                                    }
                                 }
                             }
                         }
-                    }
 
 
-                    //CORNER
-                    if ((n == 0 && m == 0) || (n == 0 && m == 7) || (n == 7 && m == 0) || (n == 7 && m == 7)) {
-                        if (state[n][m] == team)
-                            diff += CORNER_BENEFIT;
-                        else if (state[n][m] == enemy)
-                            diff -= CORNER_BENEFIT;
-                    }
+                        //CORNER
+                        if ((n == 0 && m == 0) || (n == 0 && m == 7) || (n == 7 && m == 0) || (n == 7 && m == 7)) {
+                            if (state[n][m] == team)
+                                diff += CORNER_BENEFIT;
+                            else if (state[n][m] == enemy)
+                                diff -= CORNER_BENEFIT;
+                        }
 
 
-                    //SWEET SIXTEEN
-                    if (turn < 30) {
-                        if ((n >= 2) && (n <= 5) && (m >= 2) && (m <= 5)) {
-                            if (state[n][m] == team) {
-                                diff += SWEET_SIXTEEN;
-                            } else if (state[n][m] == enemy) {
-                                diff -= SWEET_SIXTEEN;
+                        //SWEET SIXTEEN
+                        if (turn < 30) {
+                            if ((n >= 2) && (n <= 5) && (m >= 2) && (m <= 5)) {
+                                if (state[n][m] == team) {
+                                    diff += SWEET_SIXTEEN;
+                                } else if (state[n][m] == enemy) {
+                                    diff -= SWEET_SIXTEEN;
+                                }
                             }
                         }
-                    }
 
-                    //Most undesirable squares
-                    if ((n == 1 && m == 1 && state[0][0] != team) || (n == 1 && m == 6 && state[0][7] != team)
+                        //Most undesirable squares
+                    /*if ((n == 1 && m == 1 && state[0][0] != team) || (n == 1 && m == 6 && state[0][7] != team)
                             || (n == 6 && m == 1 && state[7][0] != team) || (n == 6 && m == 6 && state[7][7] != team)) {
                         if (state[n][m] == team) {
                             diff = -1000;
                         } else if (state[n][m] == enemy) {
                             diff = 1000;
+                        }
+                    }*/
+                        if (n == 1 && m == 1 && state[n][m] == team) {
+                            if (state[0][0] != team) {
+                                diff = -1000;
+                            }
+                        }
+                        if (n == 1 && m == 0 && state[n][m] == team) {
+                            if (state[0][0] != team) {
+                                diff = -1000;
+                            }
+                        }
+                        if (n == 0 && m == 1 && state[n][m] == team) {
+                            if (state[0][0] != team) {
+                                diff = -1000;
+                            }
+                        }
+
+                        if (n == 0 && m == 6 && state[n][m] == team) {
+                            if (state[0][7] != team) {
+                                diff = -1000;
+                            }
+                        }
+                        if (n == 1 && m == 6 && state[n][m] == team) {
+                            if (state[0][7] != team) {
+                                diff = -1000;
+                            }
+                        }
+
+                        if (n == 1 && m == 7 && state[n][m] == team) {
+                            if (state[0][7] != team) {
+                                diff = -1000;
+                            }
+                        }
+
+                        if (n == 6 && m == 0 && state[n][m] == team) {
+                            if (state[7][0] != team) {
+                                diff = -1000;
+                            }
+                        }
+
+                        if (n == 6 && m == 1 && state[n][m] == team) {
+                            if (state[7][0] != team) {
+                                diff = -1000;
+                            }
+                        }
+
+                        if (n == 7 && m == 1 && state[n][m] == team) {
+                            if (state[7][0] != team) {
+                                diff = -1000;
+                            }
+                        }
+
+                        if (n == 6 && m == 6 && state[n][m] == team) {
+                            if (state[7][7] != team) {
+                                diff = -1000;
+                            }
+                        }
+
+                        if (n == 7 && m == 6 && state[n][m] == team) {
+                            if (state[7][7] != team) {
+                                diff = -1000;
+                            }
+                        }
+
+                        if (n == 6 && m == 7 && state[n][m] == team) {
+                            if (state[7][7] != team) {
+                                diff = -1000;
+                            }
                         }
                     }
                 }

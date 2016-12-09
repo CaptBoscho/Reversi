@@ -74,7 +74,7 @@ class RandomGuy {
 			}
 
 			//If we're in the earlier rounds, middle pieces are more important than edges
-			if(round <= 25){
+			/*if(round <= 25){
 				bestOptions = SweetSixteen();
 				if(bestOptions.size() > 0){
 					validMoves[0] = Algorithm.getBestMove(state, bestOptions, me, round);
@@ -86,30 +86,42 @@ class RandomGuy {
 					validMoves[0] = Algorithm.getBestMove(state, bestOptions, me, round);
 					return 0;
 				}
-			} else {
-				bestOptions = groundedEdges();
-				if(bestOptions.size() > 0){
-					validMoves[0] = Algorithm.getBestMove(state, bestOptions, me, round);
-					return 0;
-				}
-
-				bestOptions = SweetSixteen();
-				if(bestOptions.size() > 0){
-					validMoves[0] = Algorithm.getBestMove(state, bestOptions, me, round);
+			} else {*/
+			bestOptions = groundedEdges();
+			if(bestOptions.size() > 0){
+				validMoves[0] = Algorithm.getBestMove(state, bestOptions, me, round);
+				if(validMoves[0] >= 0) {
 					return 0;
 				}
 			}
 
-			bestOptions = goodEdges();
-			if(bestOptions.size() > 0){
+			bestOptions.addAll(goodEdges());
+			/*if(bestOptions.size() > 0){
 				validMoves[0] = Algorithm.getBestMove(state, bestOptions, me, round);
 				return 0;
+			}*/
+
+			bestOptions.addAll(SweetSixteen());
+			/*if(bestOptions.size() > 0){
+				validMoves[0] = Algorithm.getBestMove(state, bestOptions, me, round);
+				return 0;
+			}*/
+			//}
+
+			if(round < 30 && bestOptions.size() > 0){
+				System.out.println(bestOptions.toString());
+				validMoves[0] = Algorithm.getBestMove(state, bestOptions, me, round);
+				if(validMoves[0] >= 0) {
+					return 0;
+				}
 			}
 
-			bestOptions = acceptableMoves();
+			bestOptions.addAll(acceptableMoves());
 			if(bestOptions.size() > 0){
 				validMoves[0] = Algorithm.getBestMove(state, bestOptions, me, round);
-				return 0;
+				if(validMoves[0] >=0) {
+					return 0;
+				}
 			}
 
 			for(int k = 0; k<numValidMoves; k++){
@@ -173,71 +185,100 @@ class RandomGuy {
 	}
 
 	private List<Integer> goodEdges() {
-		List<Integer> edges = new ArrayList<>();
+		/*List<Integer> justedge = new ArrayList<Integer>();
+		for (int i = 0; i< numValidMoves; i++){
+			int row = validMoves[i] / 8;
+			int col = validMoves[i] % 8;
+			if (row == 0 || row == 7 || col == 0 || col == 7) {
+				justedge.add(validMoves[i]);
+			}
+		}
+		if(justedge.size() > 0) {
+			return justedge;
+		}*/
+		List<Integer> group = new ArrayList<>();
+		List<Integer> alone = new ArrayList<>();
+		int enemy = me == 1 ? 2 : 1;
 		for (int i = 0; i < numValidMoves; i++) {
 			int row = validMoves[i] / 8;
 			int col = validMoves[i] % 8;
 			if (row == 0 || row == 7) {
 				boolean goodLeft = true;
 				boolean goodRight = true;
+				boolean bestLeft = false;
+				boolean bestRight = false;
 				if(col > 0) {
-					if(state[row][col -1] != me && state[row][col -1] != 0){
+
+					if(state[row][col -1] == enemy){
 						goodLeft = false;
 						for(int c = col; c>0; c--){
 							if(state[row][c] == me){
 								goodLeft = true;
+								bestLeft = true;
 							}
 						}
 					}
 				} else { goodLeft = false;}
 
 				if(col < 7) {
-					if(state[row][col + 1] != me && state[row][col + 1] != 0){
+					if(state[row][col + 1] == enemy){
 						goodRight = false;
 						for(int c = col; c < 7; c++){
 							if(state[row][c] == me){
 								goodRight = true;
+								bestRight = true;
 							}
 						}
 					}
 				} else { goodRight = false; }
 
-				if(goodRight && goodLeft){
-					edges.add(validMoves[i]);
+				if((bestRight && goodLeft) || (goodRight && bestLeft)) {
+					group.add(validMoves[i]);
+				}
+				else if(goodRight && goodLeft){
+					alone.add(validMoves[i]);
 				}
 			}
 
 			if ( col == 0 || col == 7){
 				boolean goodUp = true;
 				boolean goodDown = true;
+				boolean bestUp = false;
+				boolean bestDown = false;
 				if (row > 0) {
-					if(state[row - 1][col] != me && state[row - 1][col] !=0){
+
+					if(state[row - 1][col] == enemy){
 						goodDown = false;
 						for(int r = row; r>0; r--){
 							if(state[r][col] == me){
 								goodDown = true;
+								bestDown = true;
 							}
 						}
 					}
 				} else {goodDown = false;}
 
 				if( row < 7) {
-					if(state[row + 1][col] != me && state[row + 1][col] != 0){
+					if(state[row + 1][col] == enemy){
 						goodUp = false;
 						for(int r = row; r < 7; r++){
 							if(state[r][col] == me){
 								goodUp = true;
+								bestUp = true;
 							}
 						}
 					}
 				} else { goodUp = false;}
 
-				if(goodUp && goodDown){
-					edges.add(validMoves[i]);
+				if((bestDown && goodUp) || (bestUp && goodDown)){
+					group.add(validMoves[i]);
+				}
+				else if(goodUp && goodDown){
+					alone.add(validMoves[i]);
 				}
 			}
 		}
-		return edges;
+		return group.size() > 0 ? group : alone;
 	}
 
 	// Still working on this guy
@@ -429,7 +470,7 @@ class RandomGuy {
 			}
 			System.out.println("Valid Moves:");
 			for (i = 0; i < numValidMoves; i++) {
-				System.out.println(validMoves[i] / 8 + ", " + validMoves[i] % 8);
+				//System.out.println(validMoves[i] / 8 + ", " + validMoves[i] % 8);
 			}
 		} else {
 			System.out.println("Valid Moves:");
@@ -439,7 +480,7 @@ class RandomGuy {
 						if (couldBe(state, i, j)) {
 							validMoves[numValidMoves] = i * 8 + j;
 							numValidMoves++;
-							System.out.println(i + ", " + j);
+							//System.out.println(i + ", " + j);
 						}
 					}
 				}
@@ -574,8 +615,8 @@ class RandomGuy {
 	// Enter "localhost" if it is on the same computer
 	// player_number is 1 (for the black player) and 2 (for the white player)
 	public static void main(String args[]) {
-		 new RandomGuy(Integer.parseInt(args[1]), args[0]);
-		//new RandomGuy(1, "localhost");
+		//new RandomGuy(Integer.parseInt(args[1]), args[0]);
+		new RandomGuy(1, "localhost");
 	}
 
 }
